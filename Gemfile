@@ -5,8 +5,8 @@ ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.0.3', '>= 6.0.3.5'
-# gem 'rails', '~> 6.1.4' # active_model_serializers conflict
+# gem 'rails', '~> 6.0.3', '>= 6.0.3.5'
+gem 'rails', '~> 6.1.7.6'
 # Project core gems
 # Use postgres as the database for Active Record
 gem 'active_model_serializers'

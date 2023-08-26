@@ -25,6 +25,7 @@ megatester = User.find_by(email: 'megatester@test.test')
     (0..3).each do |im_indx|
       fname = "#{ vdata[:name] }_#{ im_indx }.jpg"
       new_img = new_vehicle.vehicle_imgs.create!({ name: fname, prio: im_indx })
+      # VehicleImg.find(2).image_file.attach(io: File.open(Rails.root.join('public', 'seed_files', 'vehicles', 'sprinter1_0.jpg')), filename: 'sprinter1_0.jpg')
       new_img.image_file.attach(io: File.open(Rails.root.join('public', 'seed_files', 'vehicles', fname)), filename: fname)
     end
   end
