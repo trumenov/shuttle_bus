@@ -29,6 +29,7 @@ class ::ActionController::Base
       end
     end
     options = options.gsub(/^https?\:\/\/hw\.dp\.ua(?:\:\d+|\:|)\/?/i, "#{ dst }/")
+    # raise("TMP STOP redirect_to options=[#{ options.inspect }]")
     super(options, response_status)
   end
 

@@ -10,6 +10,7 @@ class FrontProfileController < PagesController
   end
 
   def authenticate_user!
+    return redirect_to('/profile/sign_in', notice: "Authorization required") unless user_signed_in?
     result = super
     if current_user && current_user.user_soft_deleted?
       flash2 :alert, "Account will be deleted at #{ current_user.user_full_deletion_time.client_stamp_html }. #{ ActionController::Base.helpers.link_to('restore', edit_user_registration_path).html_safe }".html_safe
