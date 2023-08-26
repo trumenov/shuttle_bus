@@ -8,7 +8,7 @@ set :repo_url,        'git@github.com:trumenov/shuttle_bus.git'
 set :application,     'shuttle_bus'
 
 # If using Digital Ocean's Ruby on Rails Marketplace framework, your username is 'rails'
-set :user,            'staging_guy'
+set :user,            'der2shop_guy'
 set :puma_threads,    [2, 4]
 set :puma_workers,    0
 
@@ -24,7 +24,7 @@ set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.access.log"
 set :puma_error_log,  "#{release_path}/log/puma.error.log"
 # set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/rsa_chaky22222222_shuttle_bus_deploy.pub) }
+set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/rsa_chaky22222222_shuttle_bus_deploy.pub), auth_methods: ['publickey'] }
 # set :ssh_options,     { forward_agent: true, user: fetch(:user) }
 # default_run_options[:pty] = true
 set :puma_preload_app, true
