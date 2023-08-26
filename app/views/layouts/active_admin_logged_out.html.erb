@@ -43,6 +43,9 @@
             <li class="nav-item <%= request.path.start_with?('/profile') ? 'active' : '' %>">
               <a class="nav-link" href="/profile">Profile</a>
             </li>
+            <li class="nav-item <%= request.path.start_with?('/about') ? 'active' : '' %>">
+              <a class="nav-link" href="/about">About</a>
+            </li>
           </ul>
           <form method="GET" action='/parties' class="form-inline mt-2 mt-md-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name='search' />
