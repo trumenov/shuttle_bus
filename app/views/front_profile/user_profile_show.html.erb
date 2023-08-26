@@ -1,0 +1,20 @@
+
+email: <%= current_user.email %><br/>
+<% unless current_user.confirmed? %>
+  UNCONFIRMED!
+<% end %><br/><br/>
+<%= link_to 'My vehicles', :profile_my_vehicles %><br/><br/><br/>
+<%= link_to 'My stations', :profile_my_stations %><br/><br/><br/>
+<%= link_to 'My routes', :profile_my_routes %><br/><br/><br/>
+<%= link_to 'My trips', :profile_my_trips %><br/><br/><br/>
+<%= link_to 'Sold tickets', :profile_sold_tickets %><br/><br/><br/>
+<%= link_to 'My tickets', :profile_my_tickets %><br/><br/><br/>
+<%= link_to 'My notifications', :profile_my_notifications %><br/><br/><br/>
+<%= link_to 'Edit public info', :profile_public_info %><br/><br/><br/>
+<%= link_to "Change password", profile_password_change_path %><br/><br/><br/><br/>
+<%= link_to "Change email", profile_change_email_path %><br/><br/><br/><br/>
+<%= link_to "Delete this account", edit_user_registration_path %><br/>
+
+<br/><br/><br/>
+<%= button_to 'Logout', destroy_user_session_path, method: :delete, :onclick => "return confirm('Are you sure you want sign_out?')" %>
+<br/><br/><br/>

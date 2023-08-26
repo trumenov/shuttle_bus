@@ -1,0 +1,70 @@
+<div class='row front_content_main_row profile_vehicle_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <div class="row">
+              <% @item.valid_vehicle_imgs.each do |vimg| %>
+                <div class="col-3">
+                  <img class='edit_sm_list_img' src="<%= vimg.image_sm_url %>" />
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <a href="<%= @item.profile_vehicle_images_list_url %>">Add/delete/edit vehicle images</a>
+          </div>
+        </div>
+        <%= form_for(@item, url: { action: :update }, html: { class: "row front_edit_form" }) do |f| %>
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+            <div class="row">
+              <div class="col-12">
+                <div class="field form-group">
+                  <%= f.label :vehicle_name %>
+                  <em>(<%= Vehicle.validators_on(:name)[0].options[:maximum] %> characters maximum)</em><br />
+                  <%= f.text_field :name, class: "form-control form-control-sm" %>
+                </div>
+                <div class="field form-group">
+                  <%= f.label :vehicle_seats_count %>
+                  <%= f.text_field :vehicle_seats_cnt, type: :number, step: 1, class: "form-control form-control-sm" %>
+                </div>
+                <div class="field form-group">
+                  <%= f.label :vehicle_description_text %>
+                  <em>(<%= Vehicle.validators_on(:vehicle_description_text)[0].options[:maximum] %> characters maximum)</em><br />
+                  <%= f.text_area :vehicle_description_text, class: "form-control form-control-sm" %>
+                </div>
+                <br /><br />
+                <div class="form-group">
+                  <%= f.submit "Save", class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="row">
+          <div class="col-12">
+            <% if @item.deleted_at.nil? %>
+              <%= button_to "Delete this vehicle", profile_my_vehicle_path(@item.id), method: :delete, class: 'btn btn-danger btn-sm pull-right', onclick: 'return confirm("Sure?");' %>
+            <% else %>
+              Vehicle deleted_at: <%= @item.deleted_at.client_stamp_html %>, resave for restore.<br/>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <br /><br /><br /><br /><br /><br />
+            <%= link_to "Back to the vehicle page", profile_my_vehicle_path(@item.id) %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

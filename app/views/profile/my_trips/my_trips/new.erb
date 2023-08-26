@@ -1,0 +1,77 @@
+<div class='row front_content_main_row profile_trip_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <%= form_for(@item, url: { action: :create }, html: { method: :post, class: "row front_edit_form" }) do |f| %>
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+            <div class="row">
+              <div class="col-2">
+                <label title="To MyVehicles list">
+                  <a href="<%= profile_my_vehicles_path() %>">Vehicle</a>:
+                </label>
+              </div>
+              <div class="col-10">
+                <%= f.collection_select(:vehicle_id, current_user.vehicles.active.to_a, :id, :name, {:include_blank => true, include_hidden: false}, { :multiple => false, :class => 'form-control form-control-sm' }) %>
+              </div>
+            </div>
+            <% if @item.vehicle %>
+              <div class="row">
+                <div class="col-2">&nbsp;</div>
+                <div class="col-10">
+                  Choosed vehicle with
+                  <a href="<%= edit_profile_my_vehicle_path(@item.vehicle_id) %>">
+                    <%= @item.vehicle.vehicle_seats_cnt %> seats
+                  </a>.
+                </div>
+              </div>
+            <% end %>
+            <div class="row">
+              <div class="col-2">
+                <label title="To MyRoutes list">
+                  <a href="<%= profile_my_routes_path() %>">Route</a>:
+                </label>
+              </div>
+              <div class="col-10">
+                <%= f.collection_select(:user_route_id, current_user.user_routes.active.to_a, :id, :name, {:include_blank => true, include_hidden: false}, { :multiple => false, :class => 'form-control form-control-sm' }) %>
+              </div>
+            </div>
+            <% if @item.user_route %>
+              <div class="row">
+                <div class="col-2">&nbsp;</div>
+                <div class="col-10">
+                  Choosed route with
+                  <a href="<%= edit_profile_my_route_path(@item.user_route_id) %>">
+                    <%= @item.user_route.valid_route_points.count %> points
+                  </a>.
+                </div>
+              </div>
+            <% end %>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <%= f.label :trip_start_time %>
+                  <div class="input-group">
+                    <input value='<%= @item.trip_start_time_with_default.client_to_time_picker_str %>' type="text" name="trip_start_time" class='form-control form-control-sm date_time_picker' data-target='#event_start_time_picker' id='trip_start_time_picker' data-toggle='datetimepicker'  />
+                    <div class="input-group-append" data-target="#trip_start_time_picker" data-toggle="datetimepicker">
+                      <div class="input-group-text"><i class='fa fa-calendar'></i></div>
+                    </div>
+                  </div>
+                  <small class="form-text text-muted">Start time of the trip.</small>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <%= f.submit "Save", class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

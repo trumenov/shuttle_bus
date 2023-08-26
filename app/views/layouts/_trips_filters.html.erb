@@ -1,0 +1,36 @@
+<form class='col-12 event_filters_main_form' method="GET" action="/trips">
+  <div class='row event_filters_main_row'>
+    <% filter_items.each do |fitem| %>
+      <div class="col-12 col-md-6 col-lg-4 event_filters_col">
+        <div class="row">
+          <div class="col-7">
+            <span class='event_filters_name_span'><%= fitem[:name].ehtml %></span>
+          </div>
+          <div class="col-5">
+            <% if fitem[:prop_name] == :search %>
+              <input class='form-control form-control-sm' type="text" name='<%= fitem[:prop_name].to_s %>' value="<%= params[fitem[:prop_name]].to_s.ehtml %>" />
+            <% else %>
+              <% selected_items = params['f' + fitem[:prop_name].to_s].to_s.scoma_i64 %>
+              <select class="form-control form-control-sm select2-multiple select2_simple_multiple" multiple='multiple' data-placeholder='' title='Choose <%= fitem[:name].ehtml %>' name="f<%= fitem[:prop_name].to_s.ehtml %>[]" onchange='return event_filters_select2_change(this);' >
+                <% fitem[:prop_vals].each do |pval| %>
+                  <option value='<%= pval['prop_val_sum'] %>' <%= selected_items.include?(pval['prop_val_sum']) ? 'selected="selected"' : '' %> ><%= pval['prop_val'].ehtml %></option>
+                <% end %>
+              </select>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row event_filters_buttons_row">
+    <div class="col-6 text-right">
+      <button class='btn btn-primary btn-sm' type='submit'>Search</button>
+    </div>
+    <div class="col-6">
+      <a href="/trips" class='btn btn-light btn-sm'>Clean</a>
+    </div>
+  </div>
+</form>
+
+

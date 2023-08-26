@@ -1,0 +1,31 @@
+<div class="catalog_item_main_block ticket_item_block" >
+   <div class="catalog_item2">
+      <a class="catalog_item_img_block2" href='<%= profile_my_ticket_path(item.id) %>' onclick="return show_in_modal_link(this, 'proj_modal_main client_event_modal');" name='event_<%= item.event_ticket_pack.event.id %>' >
+        <div class="catalog_item_subimg_block">
+          <div class="catalog_item_img_cell">
+            <%= item.event_ticket_pack.event.logo_img_html %>
+          </div>
+        </div>
+      </a>
+      <div class="ticket_item_body">
+        <div class="ticket_item_left_block">
+          <a class='ticket_name_link' href="<%= profile_my_ticket_path(item.id) %>">
+            <%= item.client_ticket_name_html %>
+          </a><br />
+          <%= item.client_slot_status_html %><br />
+
+          <div class="ticket_item_price">
+             <span class='text-nowrap'><%= item.event_ticket_pack.ticket_cost_eur.to_price_html("EUR") %></span>
+          </div>
+
+        </div>
+        <div class="ticket_item_right_block">
+          Ticket type: <%= item.event_ticket_pack.event_ticket_pack_type %><br/>
+          Start at: <%= item.event_ticket_pack.event.event_start_time_with_default.client_stamp_html %><br/>
+          Finish at: <%= item.event_ticket_pack.event.event_finish_time_with_default.client_stamp_html %><br/>
+        </div>
+      </div>
+   </div>
+</div>
+
+

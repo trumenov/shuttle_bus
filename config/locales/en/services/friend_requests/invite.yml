@@ -1,0 +1,5 @@
+en:
+  services:
+    friend_requests:
+      invite:
+        you_are_already_friends: 'You are already friends'

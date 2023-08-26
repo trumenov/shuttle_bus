@@ -1,0 +1,5 @@
+en:
+  services:
+    friend_requests:
+      unfriend:
+        you_are_not_friends: 'You are not friends'

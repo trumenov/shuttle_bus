@@ -1,0 +1,10 @@
+<% if item.errors.any? %>
+  <div class="row my_error_messages_main_row">
+    <% item.errors.each do |field, val| %>
+      <% next if (defined?(selected_fields) && (!(selected_fields.include?(field)))) %>
+      <div class='col-12 bg-warning'>
+        <%= field.to_s.ehtml %>: <%= val.to_s.ehtml %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

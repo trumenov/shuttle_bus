@@ -1,0 +1,96 @@
+<div class='row front_content_main_row profile_route_point_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <%= form_for(@item, url: { action: :update }, html: { class: "row front_edit_form" }) do |f| %>
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+            <div class="row">
+              <div class="col-4">
+                <label>Station:</label>
+              </div>
+              <div class="col-8">
+                <%= f.collection_select(:user_station_id, current_user.user_stations.active.to_a, :id, :name, {:include_blank => true, include_hidden: false}, { :multiple => false, :class => 'form-control form-control-sm' }) %>
+              </div>
+            </div>
+            <% if @item.user_station %>
+              <div class="row">
+                <div class="col-12">
+                  <a href="<%= edit_profile_my_station_path(@item.user_station.id) %>">Edit choosed station</a>
+                </div>
+              </div>
+              <div class="row">
+                <% @item.user_station.valid_station_imgs.each do |vimg| %>
+                  <div class="col-3">
+                    <img class='edit_sm_list_img' src="<%= vimg.image_sm_url %>" />
+                  </div>
+                <% end %>
+                <div class="col-12">
+                  &nbsp;<br/><br/>
+                </div>
+              </div>
+            <% end %>
+             <div class="row">
+              <div class="col-4">
+                <label>Arrive at seconds:</label>
+              </div>
+              <div class="col-8">
+                <%= f.text_field :after_start_planned_seconds, type: :number, step: 1, :class => 'form-control form-control-sm' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <label>Arrive at:</label>
+              </div>
+              <div class="col-8">
+                <%= @item.rpoint_come_time.client_stamp_html %><br/><br/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <label>Stay seconds:</label>
+              </div>
+              <div class="col-8">
+                <%= f.text_field :station_stay_seconds, type: :number, step: 1, :class => 'form-control form-control-sm' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-4">
+                <label>Away at:</label>
+              </div>
+              <div class="col-8">
+                <%= @item.rpoint_away_time.client_stamp_html %><br/><br/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <%= f.submit "Save", class: 'btn btn-primary' %>
+                </div><br/><br/>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="row">
+          <div class="col-12">
+            <% if @item.deleted_at.nil? %>
+              <%= button_to "Delete this RoutePoint", profile_my_route_route_point_path(@item.user_route_id, @item.id), method: :delete, class: 'btn btn-danger btn-sm pull-right', onclick: 'return confirm("Sure?");' %>
+            <% else %>
+              RoutePoint deleted_at: <%= @item.deleted_at.client_stamp_html %>, resave for restore.<br/>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <br /><br /><br /><br /><br /><br />
+            <%= link_to "Back to the RoutePoint page", profile_my_route_route_point_path(@item.user_route_id, @item.id) %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

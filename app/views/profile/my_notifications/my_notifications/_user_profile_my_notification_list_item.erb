@@ -1,0 +1,22 @@
+<div class="catalog_item_bordered_block notification_item_block" inner_item_id='<%= item.id %>' >
+   <div class="catalog_item2">
+      <div class="row">
+        <div class="col-12">
+          <span class=''>
+            Created at: <%= item.created_at.client_stamp_html %>
+          </span><br/>
+          <% if item.sended_at %>
+            <span class='text-success'>Sended at: <%= item.sended_at.client_stamp_html %></span><br/>
+          <% else %>
+            <span class='text-danger'>Not sended</span><br/>
+          <% end %>
+          <span class=''>
+            <%= item.notification_msg_text.ehtml %>
+          </span><br/>
+          Url: <a class='small' href="<%= item.notification_push_url %>"><%= item.notification_push_url %></a><br/>
+        </div>
+      </div>
+   </div>
+</div>
+
+

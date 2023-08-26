@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # username: 'NO_DB_USER'
+  # password: 'NO_DB_PASS'
+  # encoding: unicode
+  # encoding: cp1251
+  encoding: utf8
+  # host: '127.0.0.1'
+  # port: 3306
+  url: <%= Rails.application.secrets[:DB_PUBLIC_DEV_URL] %>
+
+development:
+  <<: *default
+  # url: <%= Rails.application.secrets[:DB_PUBLIC_DEV_URL] %>
+
+test:
+  <<: *default
+  url: <%= Rails.application.secrets[:DB_PUBLIC_TEST_URL] %>
+
+production:
+  <<: *default
+  url: <%= Rails.application.secrets[:DB_PUBLIC_PROD_URL] %>

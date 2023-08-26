@@ -1,0 +1,78 @@
+<div class='row front_content_main_row profile_vehicle_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <%= form_for(@current_my_vehicle, url: profile_my_vehicle_vehicle_imgs_path(@current_my_vehicle.id), html: { method: :POST, class: "row front_edit_form", multipart: true }) do |f| %>
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12">
+                <h4>Add new vehicle image:</h4>
+              </div>
+            </div>
+            <%= render "/layouts/my_error_messages_row", item: @current_my_vehicle %>
+            <div class="row">
+              <div class="col-9">
+                <div class="field form-group">
+                  <%= f.label :new_image %>
+                  <em>(image 4MB maximum)</em><br />
+                  <input class='form-control' name="img_file" type="file"  />
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="form-group">
+                  <br />
+                  <%= f.submit "Save", class: 'btn btn-sm btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <% if @current_my_vehicle.valid_vehicle_imgs.any? %>
+          <div class="row">
+            <div class="col-12">
+              <br /><br /><br />
+              <h5>Choose vehicle logo image:</h5>
+            </div>
+          </div>
+          <%= form_for(@current_my_vehicle, url: choose_vimage_as_logo_profile_my_vehicle_path(@current_my_vehicle.id), html: { method: :post, class: 'row front_edit_form' }) do |f| %>
+            <table class="table table-sm">
+              <tbody>
+                <% @current_my_vehicle.valid_vehicle_imgs.each_with_index do |img, indx| %>
+                  <tr>
+                    <td>
+                      <input type="radio" name='logo_img_id' value='<%= img.id %>' <%= (indx.zero?) ? "checked='checked'" : '' %> />
+                    </td>
+                    <td>
+                      <img src='<%= img.image_sm_url %>' />
+                    </td>
+                    <td>
+                      <%= link_to img.name, url_for(img.image_file), target: '_blank' %><br/>
+                      <%= img.created_at.client_stamp_html %>
+                    </td>
+                    <td>
+                      <%= f.submit "Choose logo", class: 'btn btn-sm btn-outline-danger', name: "delete_item_#{ img.id }", value: 'Delete', onclick: "return confirm('Are you sure?');" %>
+                    </td>
+                  </tr>
+                <% end %>
+                <tr>
+                  <td></td>
+                  <td>
+                    <%= f.submit "Choose logo", class: 'btn btn-sm btn-outline-success' %>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          <% end %>
+        <% end %>
+        <div class="row">
+          <div class="col-12">
+            <br /><br /><br /><br /><br /><br />
+            <%= link_to "Back to edit vehicle page", edit_profile_my_vehicle_path(@current_my_vehicle.id) %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

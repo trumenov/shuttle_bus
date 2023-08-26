@@ -1,0 +1,103 @@
+<% if from_modal? %>
+<%= { main_text: yield(), flash_html: render_flash() }.merge(main_data).to_json.html_safe %>
+<% else %>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="manifest" href="/manifest.json" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <title><%= main_data[:title].ehtml %></title>
+
+        <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="/f/css/font-awesome_4_7_0.min.css" />
+    <link href="/f/bootstrap_4_4_1/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/f/css/select2/select2.min.css" type="text/css" />
+    <link rel="stylesheet" href="/f/css/select2/select2-bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/f/owl_carousel/owl.carousel.css" />
+    <link rel="stylesheet" href="/f/owl_carousel/owl.theme.default.css" />
+    <link rel="stylesheet" href="/f/css/tempusdominus-bootstrap-4.min.css" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="/f/css/global.css?v=<%= InstanceUtils.git_hash_short_val %>" />
+    <link rel="stylesheet" href="/f/css/front.css?v=<%= InstanceUtils.git_hash_short_val %>" />
+  </head>
+  <body first_path='<%= request.path.split('/').second.to_s.clean_1251.ehtml %>' >
+
+    <header class='bg-dark'>
+      <!-- Fixed navbar -->
+      <nav class="container navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">ShuttleBus</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item <%= request.path.length > 3 ? '' : 'active' %>">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item <%= request.path.start_with?('/trips') ? 'active' : '' %>">
+              <a class="nav-link" href="/trips">Trips</a>
+            </li>
+            <li class="nav-item <%= request.path.start_with?('/stations') ? 'active' : '' %>">
+              <a class="nav-link" href="/stations">Stations</a>
+            </li>
+            <li class="nav-item <%= request.path.start_with?('/profile') ? 'active' : '' %>">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item nav_item_parties_search">
+              <form method="GET" action='/trips' class="form-inline">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name='search' />
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+            </li>
+          </ul>
+
+        </div>
+      </nav>
+    </header>
+    <div class="container breadcrumb_container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <%= render_breadcrumbs(builder: ::BootstrapBreadcrumbsBuilder) %>
+        </ol>
+      </nav>
+    </div>
+    <%= render_flash() %>
+    <!-- Begin page content -->
+    <div role="main" class="container main_container">
+      <%= yield %>
+    </div>
+
+    <footer class="footer">
+      <div class="container text-center">
+        <span class="text-muted">ShuttleBus by chaky22222222@gmail.com</span>
+        <% if current_user && current_user.id.positive? %>
+          <input type="hidden" id='webpush_vapid_public_key' value='<%= Base64.urlsafe_decode64(Rails.application.secrets.webpush_vapid_public_key.to_s).bytes.join(',') %>' />
+          <input type="hidden" id='user_subscriptions_auths' value='<%= current_user.webpush_subscriptions_auths.to_json.ehtml %>' />
+        <% end %>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="/f/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/f/bootstrap_4_4_1/popper.min.js"></script>
+    <script type="text/javascript" src="/f/bootstrap_4_4_1/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/f/js/select2/select2.full.js"></script>
+    <script type="text/javascript" src='/f/owl_carousel/owl.carousel.min.js'></script>
+    <script type="text/javascript" src='/f/js/moment/moment-with-locales.min.js'></script>
+    <script type="text/javascript" src='/f/js/tempusdominus-bootstrap-4.min.js'></script>
+    <script type="text/javascript" src="/f/js/global.js?v=<%= InstanceUtils.git_hash_short_val %>"></script>
+    <script type="text/javascript" src="/f/js/front2.js?v=<%= InstanceUtils.git_hash_short_val %>"></script>
+    <script type="text/javascript" src="/f/js/web_push/web_push_index.js?v=<%= InstanceUtils.git_hash_short_val %>"></script>
+  </body>
+</html>
+<% end %>

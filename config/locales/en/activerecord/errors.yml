@@ -1,0 +1,28 @@
+en:
+  errors:
+    format: "%{message}"
+  activerecord:
+    errors:
+      messages:
+        taken: 'has already been taken'
+      models:
+        report:
+          attributes:
+            reported_users:
+              reported_users_exist: 'If kind equals event we don`t expect reported_users'
+            reporter:
+              attendance_mistake: 'User did not attend the event'
+        friend_request:
+          attributes:
+            receiver:
+              friend_to_himself: 'Requestor and receiver should not be same'
+        reported_user:
+          attributes:
+            user:
+              attendance_mistake: 'User did not attend the event'
+        review:
+          attributes:
+            assessable:
+              review_to_himself: 'Requestor and receiver should not be same'
+            reviewer:
+              attendance_mistake: 'User did not attend the event'

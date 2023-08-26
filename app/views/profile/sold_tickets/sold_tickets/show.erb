@@ -1,0 +1,164 @@
+<div class='row front_content_main_row profile_event_tpacks_main_row'>
+  <div class="w350_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <div class="row hidden_in_modal">
+          <div class="col-12">
+            <h4>SoldTicketPage</h4><br/>
+            <small><%= @current_sold_ticket.name.to_s.ehtml %></small><br/>
+            Ticket to event:
+            <a href="<%= party_path(@current_sold_ticket.event_ticket_pack.event_id) %>">
+              <%= @current_sold_ticket.event_ticket_pack.event.client_event_name_html %>
+            </a><br/><br/>
+          </div>
+        </div>
+        <%= render "/layouts/my_error_messages_row", item: @current_sold_ticket %>
+        <form class="row front_edit_form" action="<%= profile_sold_ticket_path(@current_sold_ticket.id) %>" method='POST'>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <input type="hidden" name="_method" value="PATCH" />
+          <div class="col-12 ticket_edit_block">
+            <div class="row">
+              <div class="col-12">
+                <span class=''>
+                  Ticket cost: <%= @current_sold_ticket.current_ticket_cost_eur.to_price_html('EUR') %>
+                </span><br />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <span class=''>
+                  For event owner: <%= @current_sold_ticket.current_ticket_for_owner_eur.to_price_html('EUR') %>
+                </span><br />
+              </div>
+            </div>
+            <span class='text-success'>
+              <b>Ticket status: <%= @current_sold_ticket.slot_status %>.</b>
+            </span><br />
+            <% if @current_sold_ticket.ticket_need_slotting? %>
+              <% if @current_sold_ticket.event_ticket_pack.tpack_can_try_give_a_slot? %>
+                <div class="row">
+                  <div class="col-12">
+                    <% if @current_sold_ticket.slot_status_slot_accepted? %>
+                      <span class='text-success'>
+                        User now can try to pay this ticket.
+                      </span><br />
+                      <input type="submit" class='btn btn-sm btn-outline-success' name='accept_with_bron' value='Accept with slot' />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="submit" class='btn btn-sm btn-danger' name='decline_slot' value='Decline' onclick="return confirm('Decline?');" />
+                    <% elsif @current_sold_ticket.ticket_payment_refunded? %>
+                      <span class='text-danger'>
+                        Payment refunded. User can try to pay this ticket again.
+                      </span><br />
+                    <% elsif @current_sold_ticket.ticket_payment_fail? %>
+                      <span class='text-danger'>
+                        Payment fail. User can try to pay it again.
+                      </span><br />
+                    <% elsif @current_sold_ticket.slot_status_slot_taked? %>
+                      <span class='text-danger'>
+                        This ticket need payment.
+                      </span><br />
+                      &nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="submit" class='btn btn-sm btn-danger' name='decline_slot' value='Decline' onclick="return confirm('Decline?');" />
+                    <% else %>
+                      <span class='text-danger'>
+                        <b>Ticket not actual.</b>
+                      </span><br />
+                    <% end %>
+                  </div>
+                </div>
+              <% else %>
+                <span class='text-danger'>
+                  <b>This ticket not accepted now. All tickets in pack are over or sale stopped.</b>
+                </span>
+              <% end %>
+            <% else %>
+              <% if @current_sold_ticket.slot_status_slot_asked? %>
+                <div class="row">
+                  <div class="col-12">
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <input type="submit" class='btn btn-sm btn-success' name='accept_slot' value='Accept' />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="submit" class='btn btn-sm btn-outline-success' name='accept_with_bron' value='Accept with slot' />
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="submit" class='btn btn-sm btn-danger' name='decline_slot' value='Decline' onclick="return confirm('Decline?');" />
+                  </div>
+                </div>
+              <% elsif @current_sold_ticket.slot_status_slot_canceled? || @current_sold_ticket.slot_status_slot_declined? %>
+                <% if @current_sold_ticket.event_ticket_pack.tpack_can_try_give_a_slot? %>
+                  <span class='text-danger'>
+                    <b>User can ask this ticket again, or you can accept it.</b>
+                  </span><br />
+                <% else %>
+                  <span class='text-danger'>
+                    <b>This ticket not accepted now. All tickets are over or sale now stopped.</b>
+                  </span><br />
+                <% end %>
+                <br />
+                <input type="submit" class='btn btn-sm btn-success' name='accept_slot' value='Accept' />&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="submit" class='btn btn-sm btn-outline-success' name='accept_with_bron' value='Accept with slot' />
+              <% elsif @current_sold_ticket.slot_status_slot_taked? %>
+                <input type="submit" class='btn btn-sm btn-danger' name='decline_slot' value='Decline' onclick="return confirm('Decline?');" />
+              <% else %>
+                <% if @current_sold_ticket.ticket_fully_payed? %>
+                  <br/><br/><br/>
+                  <span class='text-success'>
+                    <b>This ticket successfully payed!</b><br/>
+                  </span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </form>
+        <div class="row">
+          <div class="col-12">
+            <br/><br/><br/>
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <td></td>
+                  <td>TicketPayments</td>
+                  <td>Time</td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @current_sold_ticket.ticket_payments.each_with_index do |tpayment, indx| %>
+                  <tr>
+                    <td><%= indx + 1 %></td>
+                    <td>
+                      <span class='small'>
+                        Accepted: <%= (tpayment.amount_accepted_cts / 100.0).to_price_html('EUR') %>
+                      </span><br/>
+                      <span class='small'>
+                        Refunded: <%= (tpayment.amount_refunded_cts / 100.0).to_price_html('EUR') %>
+                      </span><br/>
+                    </td>
+                    <td class='text-right'>
+                      <span class='small'>
+                        Created: <%= tpayment.created_at.client_stamp_html %>
+                      </span><br/>
+                      <span class='small'>
+                        Updated: <%= tpayment.created_at.client_stamp_html %>
+                      </span><br/>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row hidden_in_modal">
+          <div class="col-12">
+            <br /><br /><br /><br /><br /><br />
+            <%= link_to "Back to sold tickets page", profile_sold_tickets_path %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

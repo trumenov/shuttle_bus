@@ -1,0 +1,55 @@
+<div class='row front_content_main_row profile_route_point_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12">
+            <h3>RoutePoints list</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-sm">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Logo</th>
+                  <th>RoutePoint info</th>
+                  <th>
+                    <a href="<%= new_profile_my_route_route_point_path(@current_my_route.id) %>" class="fa fa-plus" aria-hidden="true" title='Add new route point'></a>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @items.each_with_index do |rpoint, indx| %>
+                  <tr>
+                    <td><%= indx + 1 %></td>
+                    <td>
+                      <img src="<%= rpoint.route_logo_sm_url %>" />
+                    </td>
+                    <td>
+                      <%= rpoint.user_station.name.ehtml %>
+                    </td>
+                    <td>
+                      <a href="<%= profile_my_route_route_point_path(@current_my_route.id, rpoint.id) %>" class="fa fa-edit" aria-hidden="true" title='View route point info'></a>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <br /><br /><br /><br />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <br /><br /><br /><br /><br /><br />
+            <%= link_to "Back to edit_route page", edit_profile_my_route_path(@current_my_route.id) %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

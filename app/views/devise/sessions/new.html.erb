@@ -1,0 +1,47 @@
+<div class="row front_content_main_row front_parties_list_main_row">
+  <div class="col-12 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4">
+    <div class="row front_page_title_row">
+      <div class="col-12">
+        <h3>Log in</h3>
+      </div>
+    </div>
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <div class="login">
+          <div class="card">
+            <div class="col-12 card-block">
+
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                <div class="form-group">
+                  <%= f.label :email %><br />
+                  <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+                </div>
+
+                <div class="form-group">
+                  <%= f.label :password %><br />
+                  <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+                </div>
+
+                <% if devise_mapping.rememberable? -%>
+                  <div class="form-group">
+                    <%= f.check_box :remember_me %>
+                    <%= f.label :remember_me %>
+                  </div>
+                <% end -%>
+
+                <div class="form-group">
+                  <%= f.submit "Log in", class: 'btn btn-primary' %>
+                </div>
+              <% end %>
+
+              <div class="auth-links">
+                <%= render "devise/shared/links" %>
+              </div>
+              <br/><br/>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

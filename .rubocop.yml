@@ -1,0 +1,74 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.7.2
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  Exclude:
+    - 'bin/*'
+    - 'config/**/*'
+    - 'db/**/*'
+    - 'Gemfile'
+
+Rails:
+  Enabled: true
+
+Metrics/BlockLength:
+  IgnoredMethods: ['describe', 'context']
+Metrics/BlockLength:
+  Max: 100
+Metrics/MethodLength:
+  Max: 50
+Layout/ArgumentAlignment:
+  EnforcedStyle: 'with_fixed_indentation'
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+Layout/CaseIndentation:
+  Enabled: false
+Layout/EndAlignment:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/Lambda:
+  EnforcedStyle: 'literal'
+Style/WordArray:
+  Enabled: false
+RSpec/ImplicitExpect:
+  Enabled: false
+RSpec/ImplicitSubject:
+  Enabled: false
+RSpec/NamedSubject:
+  Enabled: false
+RSpec/MultipleExpectations:
+  Enabled: false
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+RSpec/LetSetup:
+  Enabled: false
+RSpec/PredicateMatcher:
+  Enabled: false
+RSpec/HookArgument:
+  Enabled: false
+RSpec/NestedGroups:
+  Enabled: false
+RSpec/VariableName:
+  Enabled: false
+RSpec/EmptyExampleGroup:
+  Enabled: false
+RSpec/SubjectStub:
+  Enabled: false
+RSpec/ExampleLength:
+  Max: 30
+RSpec/ContextWording:
+  Prefixes:
+    - when
+    - with
+    - without
+    - if
+    - unless
+    - for
+    - as

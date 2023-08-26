@@ -1,0 +1,88 @@
+<div class='row front_content_main_row profile_route_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-8">
+            &nbsp;<br /><br />
+          </div>
+          <div class="col-4">
+            <%= link_to 'Edit this route', { action: :edit }, class: 'btn btn-sm btn-outline-primary' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+          </div>
+        </div>
+
+        <div class="row profile_route_images_block">
+          <div class="col-12 catalog_item_img_block2">
+
+            <div class="catalog_item_subimg_block">
+              <div class="catalog_item_img_cell">
+                <img src="<%= @item.image_sm_url %>" alt="" title="" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <%= form_for(@item, url: @item.profile_default_url, html: { method: :post, class: "row front_edit_form" }) do |f| %>
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+            <div class="row">
+              <div class="col-12">
+                <h4 class='my_route_name'><%= @item.name.ehtml %></h4><br />
+                <div class="field form-group">
+                  <%= f.label 'Route description:' %><br />
+                  <%= @item.route_description_text.to_s.text_to_html %>
+                </div><br />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <br /><br />
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>PointLogo</th>
+                      <th>RoutePoint info</th>
+                      <th>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @item.valid_route_points.each_with_index do |rpoint, indx| %>
+                      <tr>
+                        <td><%= indx + 1 %></td>
+                        <td>
+                          <img src="<%= rpoint.route_logo_sm_url %>" />
+                        </td>
+                        <td>
+                          Station: <%= rpoint.user_station.name.ehtml %><br/><br/>
+                          Visit: <%= rpoint.visit_time_html %>
+                        </td>
+                        <td>
+                          <a href="<%= profile_my_route_route_point_path(@item.id, rpoint.id) %>" class="fa fa-edit" aria-hidden="true" title='View route point info' onclick="return show_in_modal_link(this, 'proj_modal_main client_station_modal');"></a>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table><br /><br />
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="row hidden_in_modal">
+          <div class="col-12">
+            <br /><br /><br /><br />
+            <%= link_to "Back to routes list", profile_my_routes_path %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

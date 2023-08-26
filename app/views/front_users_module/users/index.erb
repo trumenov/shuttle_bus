@@ -1,0 +1,36 @@
+<div class='row front_content_main_row front_users_list_main_row'>
+  <div class="col-12">
+    <div class="row front_page_title_row">
+      <div class="col-12">
+        <h3>Search for users</h3>
+      </div>
+    </div>
+    <div class="row front_page_content_row">
+      <div class="col-12 front_users_list_block">
+        <div class="row front_users_head_row">
+          <div class="col-5">
+            Found <%= @items.total_count %> users
+          </div>
+          <div class="col-7 pagination_col">
+            <%= paginate @items %>
+          </div>
+        </div>
+        <div class="row front_users_list_row">
+          <% @items.each do |item| %>
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3 catalog_item_wrapper front_users_list_item">
+              <%= render(:partial => 'front_users_list_item', locals: { item: item }) %>
+            </div>
+          <% end %>
+        </div>
+        <div class="row front_users_bottom_row">
+          <div class="col-5">&nbsp;</div>
+          <div class="col-7 pagination_col">
+            <%= paginate @items %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,36 @@
+<div class='row front_content_main_row front_parties_list_main_row'>
+  <div class="w500_centerd">
+    <div class="row front_page_title_row hidden_in_modal">
+      <div class="col-12">
+        <h3>Edit public info</h3>
+      </div>
+    </div>
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <%= render "/layouts/my_error_messages_row", item: current_user %>
+        <%= form_with(url: profile_public_info_path, method: :post, html: { class: "row front_edit_form", multipart: true }) do |form| %>
+          <div class="col-12">
+            Edit public info for <%= current_user.email %><br/><br/>
+            <div class="row">
+              <div class="col-8">
+                <div class="form-group">
+                  <label>New avatar</label>
+                  <input class='form-control' name="new_avatar" type="file"  />
+                </div>
+              </div>
+              <div class="col-4">
+                <%= user_avatar_html(current_user) %>
+              </div>
+            </div>
+            <br/><br/>
+            <%= form.submit "Save" %>
+            <br/><br/>
+            <%= link_to "Back to the profile page", :user_root %>
+            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

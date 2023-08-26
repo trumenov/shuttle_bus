@@ -1,0 +1,4 @@
+#error_explanation h2 { display: inline-block; font: 500 14px sans-serif; color: #333; }
+#error_explanation ul li { font: 400 12px sans-serif; color: red; }
+.front_page_title_row h3 { font: 600 16px sans-serif; color: #888; display: inline-block; padding-top: 20px; line-height: 1; padding-bottom: 10px; }
+form[form_runned_loading_xhr="1"] .hidden_if_form_loading_update_with_xhr { visibility: hidden; }

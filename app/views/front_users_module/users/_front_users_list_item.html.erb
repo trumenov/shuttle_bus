@@ -1,0 +1,24 @@
+<div class="catalog_item_main_block" >
+   <div class="catalog_item2">
+      <a class="catalog_item_img_block2" href='<%= user_path(item.id) %>' onclick="return show_in_modal_link(this, 'proj_modal_main user_modal');" name='user_<%= item.id %>' >
+        <div class="catalog_item_subimg_block">
+          <div class="catalog_item_img_cell">
+            <img src="<%= item.sm_avatar_url %>" alt="" title="" />
+          </div>
+        </div>
+      </a>
+      <div class="catalog_item_body">
+         <div class="catalog_item_top_block">
+            <div class="name_rate">
+               <div class="catalog_item_title">
+                  <a href="<%= user_path(item.id) %>" onclick="return show_in_modal_link(this, 'proj_modal_main user_modal');" name='user_<%= item.id %>'>
+                    <%= item.name_or_email_for_public.ehtml %><br/>
+                  </a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+

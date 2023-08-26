@@ -1,0 +1,173 @@
+<div class='row front_content_main_row profile_event_tpacks_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <div class="row hidden_in_modal">
+          <div class="col-12">
+            <h4>TicketPage</h4><br/>
+            <small><%= @current_my_ticket_item.name.to_s.ehtml %></small><br/>
+            Ticket to event:
+            <a href="<%= party_path(@current_my_ticket_item.event_ticket_pack.event_id) %>">
+              <%= @current_my_ticket_item.event_ticket_pack.event.client_event_name_html %>
+            </a><br/><br/>
+            Event starts at: <%= @current_my_ticket_item.event_starts_at.client_stamp_html %><br/>
+            Event finish at: <%= @current_my_ticket_item.event_finish_at.client_stamp_html %><br/>
+          </div>
+        </div>
+        <%= render "/layouts/my_error_messages_row", item: @current_my_ticket_item %>
+        <form class="row front_edit_form" action="<%= profile_my_ticket_path(@current_my_ticket_item.id) %>" method='POST'>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <input type="hidden" name="_method" value="PATCH" />
+          <div class="col-12 ticket_edit_block">
+            <% if @current_my_ticket_item.can_user_try_to_pay_ticket? %>
+              <div class="row">
+                <div class="col-12 text-center">
+                  <input type="submit" class='btn btn-sm btn-success' name='try_pay' value='Pay this ticket for <%= @current_my_ticket_item.current_ticket_cost_eur.to_price_text %> EUR' />
+                </div>
+              </div>
+            <% end %>
+            <% if @current_my_ticket_item.ticket_need_payment? %>
+              <% if @current_my_ticket_item.event_ticket_pack.tpack_can_try_give_a_slot? || @current_my_ticket_item.slot_status_slot_taked? %>
+                <div class="row">
+                  <div class="col-12">
+                    <% if @current_my_ticket_item.event_ticket_pack.event.visibility_status_published? %>
+                      <span class='text-danger'>
+                        <b>Event status: <%= @current_my_ticket_item.event_ticket_pack.event.availability_html %></b>
+                      </span><br />
+                    <% end %>
+                    <% if @current_my_ticket_item.ticket_fully_payed? %>
+                      <span class='text-danger'>
+                        <b>Ticket status: <%= @current_my_ticket_item.slot_status %>.</b>
+                      </span><br />
+                    <% else %>
+                      <% if @current_my_ticket_item.slot_status_slot_accepted? %>
+                        <span class='text-success'>
+                          Event owner accepted you to buy the ticket. Now you can pay it.
+                        </span><br />
+                      <% elsif @current_my_ticket_item.ticket_payment_refunded? %>
+                        <span class='text-danger'>
+                          Your payment refunded. Now you can try to pay this ticket again.
+                        </span><br />
+                      <% elsif @current_my_ticket_item.ticket_payment_fail? %>
+                        <span class='text-danger'>
+                          Your payment fail. Now you can try to pay it again.
+                        </span><br />
+                      <% elsif @current_my_ticket_item.slot_status_slot_taked? %>
+                        <span class='text-danger'>
+                          This ticket need payment.
+                        </span><br />
+                      <% else %>
+                        <span class='text-danger'>
+                          <b>Ticket status: <%= @current_my_ticket_item.slot_status %>.</b>
+                        </span><br />
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+
+              <% else %>
+                <span class='text-danger'>
+                  <b>This ticket not accepted now. All tickets are over now.</b>
+                </span>
+              <% end %>
+            <% else %>
+              <span class='text-success'>
+                <b>Ticket status: <%= @current_my_ticket_item.slot_status %>.</b>
+              </span><br />
+              <% if @current_my_ticket_item.slot_status_slot_canceled? || @current_my_ticket_item.slot_status_slot_declined? %>
+                <% if @current_my_ticket_item.event_ticket_pack.tpack_can_try_give_a_slot? %>
+                  <span class='text-danger'>
+                    <b>You can ask this ticket again.</b>
+                  </span><br /><br />
+                  <input type="submit" class='btn btn-sm btn-success' name='ask_again' value='Ask ticket again. Price <%= @current_my_ticket_item.current_ticket_cost_eur.to_price_text %> EUR' />
+                <% else %>
+                  <span class='text-danger'>
+                    <b>This ticket not accepted now. All tickets are over or sale stopped.</b>
+                  </span><br />
+                <% end %>
+              <% else %>
+                <% if @current_my_ticket_item.ticket_fully_payed? %>
+                  <br/><br/><br/>
+                  <span class='text-success'>
+                    <b>This ticket successfully payed!</b><br/>
+                    Now you can chat with other guys from this event.<br/>
+                    <a href="<%= chat_party_path(@current_my_ticket_item.event_ticket_pack.event.id) %>" class='btn btn-outline-success btn-sm' onclick="return show_in_modal_link(this, 'proj_modal_main client_event_chat_modal');" name="event_chat_<%= @current_my_ticket_item.event_ticket_pack.event.id %>">
+                      Lets chat!
+                    </a>
+                    <br/><br/><br/>
+                  </span>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <div class="col-12">
+            <br/><br/><br/>
+            <table class="table table-sm table-striped">
+              <thead>
+                <tr>
+                  <td></td>
+                  <td>TicketPayments</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <% @current_my_ticket_item.ticket_payments.each_with_index do |tpayment, indx| %>
+                  <tr>
+                    <td><%= indx + 1 %></td>
+                    <td>
+                      <span class='small'>
+                        Accepted: <%= (tpayment.amount_accepted_cts / 100.0).to_price_html('EUR') %>
+                      </span><br/>
+                      <span class='small'>
+                        Refunded: <%= (tpayment.amount_refunded_cts / 100.0).to_price_html('EUR') %>
+                      </span><br/>
+                      <span class='small'>
+                        Created: <%= tpayment.created_at.client_stamp_html %>
+                      </span><br/>
+                      <span class='small'>
+                        Updated: <%= tpayment.created_at.client_stamp_html %>
+                      </span><br/>
+                    </td>
+                    <td>
+                      <% if tpayment.calc_refund_amount_cts.positive? %>
+                        <input type="submit" class='btn btn-sm btn-danger' name='try_refund_<%= tpayment.id %>' value='Refund <%= (tpayment.calc_refund_amount_cts / 100.0).to_price_text %> EUR' onclick='return confirm("Are you sure?");' />
+                      <% elsif tpayment.amount_refunded_cts.positive? %>
+                        <span class='text-success'>
+                          Refunded: <%= (tpayment.amount_refunded_cts / 100.0).to_price_html('EUR') %>
+                        </span>
+                      <% elsif tpayment.amount_accepted_cts.zero? %>
+                        <% if tpayment.gateway_payment_need_check.positive? %>
+                          <span class='text-danger'>
+                            Not payed. Waiting for bank answer.
+                          </span>
+                          <% checkout_url = tpayment.try_get_checkout_url %>
+                          <% if checkout_url.size_positive? %>
+                            &nbsp;<b><a class='text-danger' href="<%= checkout_url.html_safe %>">
+                              Checkout url
+                            </a></b>
+                          <% end %>
+                        <% else %>
+                          <span class='text-danger'>
+                            Fail
+                          </span>
+                        <% end %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </form>
+        <div class="row hidden_in_modal">
+          <div class="col-12">
+            <br /><br /><br /><br /><br /><br />
+            <%= link_to "Back to the event ticket choose page", party_tickets_path(@current_my_ticket_item.event_ticket_pack.event.id) %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

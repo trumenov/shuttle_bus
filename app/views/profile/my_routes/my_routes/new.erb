@@ -1,0 +1,26 @@
+<div class='row front_content_main_row profile_route_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <%= form_for(@item, url: { action: :create }, html: { method: :post, class: "row front_edit_form" }) do |f| %>
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+            <div class="row">
+              <div class="col-12">
+                <div class="field form-group">
+                  <%= f.label :route_name %>
+                  <em>(<%= Vehicle.validators_on(:name)[0].options[:maximum] %> characters maximum)</em><br />
+                  <%= f.text_field :name, class: "form-control form-control-sm" %>
+                </div>
+                <div class="form-group">
+                  <%= f.submit "Save", class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

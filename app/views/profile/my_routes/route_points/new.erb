@@ -1,0 +1,30 @@
+<div class='row front_content_main_row profile_route_point_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <%= form_for(@item, url: { action: :create }, html: { method: :post, class: "row front_edit_form" }) do |f| %>
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Station:</label><br />
+                  <%= f.collection_select(:user_station_id, current_user.user_stations.active.to_a, :id, :name, {:include_blank => true, include_hidden: false}, { :multiple => false, :class => 'form-control form-control-sm' }) %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <%= f.submit "Save", class: 'btn btn-primary' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+

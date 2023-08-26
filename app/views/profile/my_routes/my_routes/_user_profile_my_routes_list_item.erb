@@ -1,0 +1,42 @@
+<div class="catalog_item_main_block" >
+   <div class="catalog_item2">
+      <a class="catalog_item_img_block2" href='<%= item.profile_default_url %>' onclick="return show_in_modal_link(this, 'proj_modal_main client_my_route_modal');" name='my_route_<%= item.id %>' >
+        <% if item.valid_points_imgs.any? %>
+          <div class="owl-carousel owl-theme owl_prod_list_slider">
+            <% item.valid_points_imgs.each do |sm_img| %>
+              <div class='item'>
+                 <table>
+                    <tbody>
+                       <tr>
+                          <td>
+                            <img class='slider_sm_img' src='<%= sm_img.image_sm_url %>' />
+                          </td>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+            <% end %>
+         </div>
+        <% else %>
+          <div class="catalog_item_subimg_block">
+            <div class="catalog_item_img_cell">
+              <img src="/pics/no_image.png" alt="" title="" />
+            </div>
+          </div>
+        <% end %>
+      </a>
+      <div class="catalog_item_body">
+         <div class="catalog_item_top_block">
+            <div class="name_rate">
+               <div class="catalog_item_title">
+                  <a href="<%= item.profile_default_url %>" onclick="return show_in_modal_link(this, 'proj_modal_main client_my_route_modal');" name='my_route_<%= item.id %>'>
+                    <%= item.name.to_s.ehtml %>
+                  </a><br/><br/>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+

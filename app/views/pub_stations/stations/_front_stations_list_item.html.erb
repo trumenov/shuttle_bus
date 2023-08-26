@@ -1,0 +1,49 @@
+<div class="catalog_item_main_block" >
+   <div class="catalog_item2">
+      <a class="catalog_item_img_block2" href='<%= station_path(item.id) %>' onclick="return show_in_modal_link(this, 'proj_modal_main station_modal');" name='station_<%= item.id %>' >
+        <% if item.valid_station_imgs.any? %>
+          <div class="owl-carousel owl-theme owl_prod_list_slider">
+            <% item.valid_station_imgs.each do |sm_img| %>
+              <div class='item'>
+                 <table>
+                    <tbody>
+                       <tr>
+                          <td>
+                            <img class='slider_sm_img' src='<%= sm_img.image_sm_url %>' />
+                          </td>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+            <% end %>
+         </div>
+        <% else %>
+          <div class="catalog_item_subimg_block">
+            <div class="catalog_item_img_cell">
+              <img src="/pics/no_image.png" alt="" title="" />
+            </div>
+          </div>
+        <% end %>
+      </a>
+      <div class="catalog_item_body">
+         <div class="catalog_item_top_block">
+            <div class="name_rate">
+               <div class="catalog_item_title">
+                  <a href="<%= station_path(item.id) %>" onclick="return show_in_modal_link(this, 'proj_modal_main station_modal');" name='station_<%= item.id %>'>
+                    <%= item.name.to_s.ehtml %>
+                  </a>
+               </div>
+            </div>
+            <div class="col-12">
+              Lat: <%= sprintf('%.15f', item.station_lat_f64) %><br/>
+              Lng: <%= sprintf('%.15f', item.station_lng_f64) %><br/>
+              <a target="_blank" href="http://maps.google.com/?q=<%= ERB::Util.url_encode(item.name.to_s) %>@<%= item.station_lat_f64 %>,<%= item.station_lng_f64 %>">
+                Show at google_maps v3
+              </a><br/>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+

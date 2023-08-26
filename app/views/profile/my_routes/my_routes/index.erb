@@ -1,0 +1,47 @@
+<div class='row front_content_main_row my_routes_list_main_row'>
+  <div class="col-12">
+    <div class="row front_page_title_row hidden_in_modal">
+      <div class="col-12">
+        <h3>My routes</h3>
+        <%= link_to 'Create new route', :new_profile_my_route, class: 'btn btn-sm btn-outline-success' %>
+      </div>
+    </div>
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <form class="row profile_my_routes_search_row" method='GET' action='<%= profile_my_routes_path %>'>
+          <div class="col-8 col-md-6 col-lg-3">
+            <input type='text' class='form-control form-control-sm' placeholder='Search' name='search' value="<%= params[:search].to_s.ehtml %>" />
+          </div>
+          <div class="col-2 col-md-2 col-lg-1">
+            <button class='btn btn-sm btn-success' type='submit'>Search</button>
+          </div>
+          <div class="col-2 col-md-2 col-lg-1">
+            <a class='btn btn-sm btn-light' href='<%= profile_my_routes_path %>'>Clear</a>
+          </div>
+        </form>
+        <div class="row profile_my_routes_head_row">
+          <div class="col-12 col-md-5">
+            Found <%= @items.total_count %> routes
+          </div>
+          <div class="col-12 col-md-7 pagination_col">
+            <%= paginate @items %>
+          </div>
+        </div>
+        <div class="row front_parties_list_row my_routes_list_row">
+          <% @items.each do |item| %>
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3 catalog_item_wrapper front_parties_list_item">
+              <%= render(:partial => 'user_profile_my_routes_list_item', locals: { item: item }) %>
+            </div>
+          <% end %>
+        </div>
+        <div class="row front_parties_bottom_row">
+          <div class="col-12 col-md-5">&nbsp;</div>
+          <div class="col-12 col-md-7 pagination_col">
+            <%= paginate @items %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

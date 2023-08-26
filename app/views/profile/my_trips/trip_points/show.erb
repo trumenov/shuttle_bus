@@ -1,0 +1,98 @@
+<div class='row front_content_main_row profile_trip_point_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-8">
+            <a class="" href="<%= @item.client_default_url %>" target='_blank' >View this TripPoint as client</a><br /><br />
+          </div>
+          <div class="col-4">
+            <a href="<%= edit_profile_my_route_route_point_path(@current_my_trip.user_route.id, @item.id) %>" class='btn btn-sm btn-outline-primary'>
+              Edit RoutePoint
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+          </div>
+        </div>
+
+        <div class="row profile_station_images_block">
+          <div class="col-12 catalog_item_img_block2">
+            <% if @item.user_station.valid_station_imgs.any? %>
+              <div class="owl-carousel owl-theme owl_prod_list_slider">
+                <% @item.user_station.valid_station_imgs.each do |sm_img| %>
+                  <div class='item'>
+                     <table>
+                        <tbody>
+                           <tr>
+                              <td>
+                                <img class='slider_sm_img' src='<%= sm_img.image_sm_url %>' />
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                <% end %>
+             </div>
+            <% else %>
+              <div class="catalog_item_subimg_block">
+                <div class="catalog_item_img_cell">
+                  <img src="/pics/no_image.png" alt="" title="" />
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>Station:</label>
+                <a href="<%= profile_my_station_path(@item.user_station.id) %>" title='Veiw info of station' onclick="return show_in_modal_link(this, 'proj_modal_main profile_my_station_modal');">
+                  <%= @item.user_station.name.ehtml %>
+                </a><br />
+                Coords: <%= @item.user_station.station_coords_html %><br/>
+                <a target="_blank" href="http://maps.google.com/?q=<%= ERB::Util.url_encode(@item.user_station.name) %>@<%= @item.user_station.station_lat_f64 %>,<%= @item.user_station.station_lng_f64 %>">
+                  Show at google_maps v3
+                </a><br/>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5">
+            <label>Come at (<span title='after_start_planned_seconds'><%= @item.after_start_planned_seconds %>s</span>):</label>
+          </div>
+          <div class="col-7">
+            <%= @item.rpoint_come_time(@current_my_trip.trip_start_time_unix_with_default).client_stamp_html %><br/>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5">
+            <label>Away at (<span title='station_stay_seconds'><%= @item.station_stay_seconds %>s</span>):</label>
+          </div>
+          <div class="col-7">
+            <%= @item.rpoint_away_time(@current_my_trip.trip_start_time_unix_with_default).client_stamp_html %><br/>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            &nbsp;<br /><br />
+          </div>
+        </div>
+        <div class="row hidden_in_modal">
+          <div class="col-12">
+            <br /><br /><br /><br /><br /><br />
+            <%= link_to "Back to TripPoints list", profile_my_trip_trip_points_path(@current_my_trip.id) %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

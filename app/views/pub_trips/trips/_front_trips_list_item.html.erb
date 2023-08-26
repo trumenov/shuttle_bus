@@ -1,0 +1,48 @@
+<div class="catalog_item_main_block" >
+   <div class="catalog_item2">
+      <a class="catalog_item_img_block2" href='<%= trip_path(item.id) %>' onclick="return show_in_modal_link(this, 'proj_modal_main trip_modal');" name='trip_<%= item.id %>' >
+        <% if item.vehicle.valid_vehicle_imgs.any? %>
+          <div class="owl-carousel owl-theme owl_prod_list_slider">
+            <% item.vehicle.valid_vehicle_imgs.each do |sm_img| %>
+              <div class='item'>
+                 <table>
+                    <tbody>
+                       <tr>
+                          <td>
+                            <img class='slider_sm_img' src='<%= sm_img.image_sm_url %>' />
+                          </td>
+                       </tr>
+                    </tbody>
+                 </table>
+              </div>
+            <% end %>
+         </div>
+        <% else %>
+          <div class="catalog_item_subimg_block">
+            <div class="catalog_item_img_cell">
+              <img src="/pics/no_image.png" alt="" title="" />
+            </div>
+          </div>
+        <% end %>
+      </a>
+      <div class="catalog_item_body">
+         <div class="catalog_item_top_block">
+            <div class="name_rate">
+               <div class="catalog_item_title">
+                  <a href="<%= trip_path(item.id) %>" onclick="return show_in_modal_link(this, 'proj_modal_main trip_modal');" name='trip_<%= item.id %>'>
+                    <%= item.user_route.name.to_s.ehtml %>
+                  </a>
+               </div>
+            </div>
+            <div class="catalog_item_price">
+
+            </div>
+            <div class='available'>
+              <%= item.publish_status_html %>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+

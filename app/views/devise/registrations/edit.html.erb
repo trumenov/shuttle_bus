@@ -1,0 +1,49 @@
+<div class="row front_content_main_row front_parties_list_main_row">
+  <div class="col-12 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4">
+    <div class="row front_page_title_row">
+      <div class="col-12">
+        <h3>Remove account <%= current_user.email.ehtml %></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <%= render "devise/shared/error_messages", resource: resource %>
+      </div>
+    </div>
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <% if current_user.user_soft_deleted? %>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "row front_edit_form" }) do |f| %>
+            <div class="col-12">
+              <br /><br />
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name='restore_chk' value='1' checked="checked" />
+                  Restore my account
+                </label>
+              </div><br /><br />
+              <div class="form-check">
+                <label class="form-check-label">
+                  <input type="radio" class="form-check-input" name='restore_chk' value='2' />
+                  Remove my account
+                </label>
+              </div>
+              <br /><br /><br />
+            </div>
+            <div class="col-12">
+              <div class="actions">
+                <%= f.submit "Apply", :class => 'btn btn-sm btn-success', onclick: "return confirm(\'Sure?\')" %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <h3>Cancel my account</h3>
+          <p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), { method: :delete, onclick: "return confirm(\'Sure?\')", :class => "btn btn-sm btn-danger" } %></p>
+        <% end %>
+        <br /><br /><br /><br />
+        <%= link_to "Back to the profile page", :user_root %>
+        <br /><br /><br /><br />
+      </div>
+    </div>
+  </div>
+</div>

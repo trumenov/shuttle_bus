@@ -1,0 +1,5 @@
+
+.admin_show_item_img_span img { object-fit: contain; width: 70px; height: 70px; max-width: 70px; max-height: 70px; }
+.subs_report_text_span[require_admin='1'] { color: red; font-weight: 600; }
+.report_admin_text_span { font-size: 12px; font-weight: 400; font-style: italic; }
+

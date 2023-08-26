@@ -1,0 +1,83 @@
+<div class="row event_chat_main_block">
+  <form class="w500_centerd base_style client_msgs_list_block" method='POST' action="<%= chat_trip_path(@front_side_current_trip.id) %>" onsubmit="return run_ajax_submit_if_modal(this);" success_func="refresh_model_items_htmls_in_list">
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <div class="row hidden_in_modal">
+      <div class="col-12">
+        <div class="form-group">
+          <h3 class="col-12">Chat of trip
+            <a href="<%= trip_path(@front_side_current_trip.id) %>">
+              <%= @front_side_current_trip.client_trip_name_html %>
+            </a>
+          </h3><br/>
+        </div>
+      </div>
+    </div>
+    <% unless can_current_user_read_trip_chat? %>
+      <div class="row">
+        <div class="col-12">
+          <div class="text-danger">
+            <h3>You can not see this chat. Authorize and get a ticket first.</h3>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="row">
+      <div class="col-12">
+        <div class="text-right">
+          <div class="wph_page_pagination">
+            <%= paginate @items %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table messages_list_table">
+          <tbody>
+          <% TripChatMsg.pack_by_src_ca_name_trip_chat_msgs(@items, current_user.id).each_with_index do |msg_data, indx| %>
+              <tr class="message_tr client_event_chat_msg_tr list_item_main_block src_ca_ind_<%= msg_data[:src_ca_ind] %>">
+                <td class="message_src_ca_td">
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12">
+                        <a class='msg_src_ca_name_link' href="<%= user_path(msg_data[:ca_id]) %>" onclick="return show_in_modal_link(this, 'proj_modal_main user_info_modal');" name="user_<%= msg_data[:ca_id] %>">
+                          <%= msg_data[:ca_name].ehtml %>
+                        </a>
+                      </div>
+                    </div>
+                    <% msg_data[:msgs_arr].each do |msg| %>
+                      <div class="row message_text_row <%= @unread_ids.include?(msg.id) ? 'unread_by_ca_msg' : '' %>">
+                        <div class="col-8 msg_texts_html_block">
+                          <%= msg.msg_text_html.html_safe %>
+                        </div>
+                        <div class="col-4">
+                          <%= msg.created_at.client_stamp_html %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row add_new_msg_block">
+      <div class="col-12 no_padding_left">
+        <div class="row">
+          <div class="col-9 hidden_if_form_loading_update_with_xhr">
+            <textarea class='form-control form-control-sm' rows='3' name='msg_text' placeholder='Message'><%= params[:msg_text].to_s.ehtml %></textarea>
+          </div>
+          <div class="col-3 no_padding hidden_if_form_loading_update_with_xhr">
+            <button type="submit" class='btn btn-outline-success btn-sm'>Send</button><br/>
+            <div class="hidden_in_modal">
+              <button type="button" class='btn btn-outline-primary btn-sm each_5_seconds_btn' already_runned='0' onclick="return refresh_messages_in_list(this);">Refresh</button>
+            </div>
+          </div>
+        </div>
+        <br/><br/><br/><br/>
+      </div>
+    </div>
+  </form>
+</div>

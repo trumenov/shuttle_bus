@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-12">
+    <%= form_for(item, url: publish_flag_profile_my_trip_path(item.id), method: 'POST', html: { class: "row front_edit_form" }) do |f| %>
+      <div class="col-12">
+        <%= render "/layouts/my_error_messages_row", item: item, selected_fields: [:published] %>
+        <% if item.trip_published? %>
+          <input type="hidden" name='new_publish_flag' value='0' />
+          <div class="alert alert-success" role="alert">
+            <label>This trip already published</label><br/>
+            <button type="submit" class="btn btn-outline-danger">Unpublish</button>
+          </div>
+        <% else %>
+          <input type="hidden" name='new_publish_flag' value='1' />
+          <div class="alert alert-warning" role="alert">
+            <label>This trip not published yet</label><br/>
+            <button type="submit" class="btn btn-outline-success">Publish</button>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

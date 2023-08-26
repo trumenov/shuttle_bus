@@ -1,0 +1,79 @@
+<div class='row front_content_main_row front_parties_edit_main_row'>
+  <div class="col-12 sm_no_padding row_np3" id="content">
+    <div class="container">
+      <div class="event_card_main_block">
+        <form class="event_card_page_wrapper" method="GET" action='/cart/add/<%= @item.id %>'>
+          <div class="card_slider product_card_slider">
+            <div class="card_main_slider synchronized_2_sliders" sync_slider_id='0'>
+              <a href="#" class='open_card_imgs_galery_btn' title="Open image in new tab" target="_blank"></a>
+              <div class="owl-carousel owl-theme sync_large_slider">
+                <% @item.valid_station_imgs.each do |big_img| %>
+                  <div class='item'>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img class='slider_sm_img' src='<%= url_for(big_img.image_file) %>' />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                <% end %>
+              </div>
+              <div class="owl-carousel owl-theme sync_small_slider">
+                <% @item.valid_station_imgs.each do |sm_img| %>
+                  <div class='item'>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img class='slider_sm_img' src='<%= sm_img.image_sm_url %>' />
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="event_card_info card_info_main_block">
+            <div class="row">
+              <div class="col-12">
+                <div class="event_card_title">
+                  Trip <%= @item.name.to_s.ehtml %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="event_id small-text">StationID: <span><%= @item.id %></span></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                Coords: <%= @item.station_coords_html %><br/>
+                <a target="_blank" href="http://maps.google.com/?q=<%= ERB::Util.url_encode(@item.name.to_s) %>@<%= @item.station_lat_f64 %>,<%= @item.station_lng_f64 %>">
+                  Show at google_maps v3
+                </a><br/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                Description:
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <%= @item.station_description_text.to_s.text_to_html %>
+              </div>
+            </div>
+          </div>
+          <br/><br/><br/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

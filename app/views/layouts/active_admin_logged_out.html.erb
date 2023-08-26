@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <title>ShuttleBus</title>
+
+        <!-- Bootstrap core CSS -->
+    <link href="/f/bootstrap_4_4_1/bootstrap.min.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/f/css/select2/select2.min.css" type="text/css" />
+    <link rel="stylesheet" href="/f/css/select2/select2-bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="/f/owl_carousel/owl.carousel.css" />
+    <link rel="stylesheet" href="/f/owl_carousel/owl.theme.default.css" />
+    <!-- Custom styles for this template -->
+    <link href="/f/css/global.css?v=<%= InstanceUtils.git_hash_short_val %>" rel="stylesheet" />
+    <link href="/f/css/front.css?v=<%= InstanceUtils.git_hash_short_val %>" rel="stylesheet" />
+  </head>
+  <body class="active_admin logged_out <%= controller.action_name %>">
+
+    <header class='bg-dark'>
+      <!-- Fixed navbar -->
+      <nav class="container navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">ShuttleBus</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item <%= request.path.length > 3 ? '' : 'active' %>">
+              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item <%= request.path.start_with?('/admin/') ? 'active' : '' %>" >
+              <a class="nav-link" href="/admin/login">Admin</a>
+            </li>
+            <li class="nav-item <%= request.path.start_with?('/parties') ? 'active' : '' %>">
+              <a class="nav-link" href="/parties">Parties</a>
+            </li>
+            <li class="nav-item <%= request.path.start_with?('/profile') ? 'active' : '' %>">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+          </ul>
+          <form method="GET" action='/parties' class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" name='search' />
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main role="main" class="container">
+      <div id="wrapper">
+        <div id="content_wrapper">
+          <div class="flashes">
+            <% flash_messages.each do |type, message| %>
+              <%= content_tag :div, message, class: "flash flash_#{type}" %>
+            <% end %>
+          </div>
+          <div id="active_admin_content">
+            <%= yield %>
+          </div>
+        </div>
+        <div id="footer">
+          <%= yield :footer %>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container text-center">
+        <span class="text-muted">ShuttleBus by chaky22222222@gmail.com</span>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="/f/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/f/bootstrap_4_4_1/popper.min.js"></script>
+    <script type="text/javascript" src="/f/bootstrap_4_4_1/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/f/js/select2/select2.full.js"></script>
+    <script type="text/javascript" src='/f/owl_carousel/owl.carousel.min.js'></script>
+    <script type="text/javascript" src="/f/js/global.js?v=<%= InstanceUtils.git_hash_short_val %>"></script>
+    <script type="text/javascript" src="/f/js/front2.js?v=<%= InstanceUtils.git_hash_short_val %>"></script>
+  </body>
+</html>
+

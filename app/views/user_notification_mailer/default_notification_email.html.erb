@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h2>You have a new notification in yor account <%= @user.name.to_s.ehtml %>(@user.email.to_s.ehtml)</h2><br/><br/>
+    <span>Message: <b><%= @notification.notification_msg_text.to_s.ehtml %></b></span><br/><br/>
+    <span>
+      Link: <%= @url.ehtml %>.
+    </span><br/><br/>
+    <span>Have a great day!</span>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<div class='row front_content_main_row profile_station_edit_main_row'>
+  <div class="w500_centerd" id="content">
+    <div class="row front_page_content_row">
+      <div class="col-12">
+        <div class="row">
+          <div class="col-8">
+            <a class="" href="<%= @item.client_default_url %>" target='_blank' >View this station as client</a><br /><br />
+          </div>
+          <div class="col-4">
+            <%= link_to 'Edit this station', { action: :edit }, class: 'btn btn-sm btn-outline-primary' %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+          </div>
+        </div>
+
+        <div class="row profile_station_images_block">
+          <div class="col-12 catalog_item_img_block2">
+            <% if @item.valid_station_imgs.any? %>
+              <div class="owl-carousel owl-theme owl_prod_list_slider">
+                <% @item.valid_station_imgs.each do |sm_img| %>
+                  <div class='item'>
+                     <table>
+                        <tbody>
+                           <tr>
+                              <td>
+                                <img class='slider_sm_img' src='<%= sm_img.image_sm_url %>' />
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                <% end %>
+             </div>
+            <% else %>
+              <div class="catalog_item_subimg_block">
+                <div class="catalog_item_img_cell">
+                  <img src="/pics/no_image.png" alt="" title="" />
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        <%= form_for(@item, url: @item.profile_default_url, html: { method: :post, class: "row front_edit_form" }) do |f| %>
+          <div class="col-12">
+            <%= render "/layouts/my_error_messages_row", item: @item %>
+            <div class="row">
+              <div class="col-12">
+                <h3 class='my_station_name'><%= @item.name.ehtml %></h3><br />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <% if @item.coords_absent? %>
+                  No coordinates
+                <% else %>
+                  Coords: <%= @item.station_coords_html %><br />
+                  <a target="_blank" href="http://maps.google.com/?q=<%= ERB::Util.url_encode(@item.name) %>@<%= @item.station_lat_f64 %>,<%= @item.station_lng_f64 %>">
+                    Show at google_maps
+                  </a>
+                <% end %>
+                <br/><br />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="field form-group">
+                  <%= f.label 'station description:' %><br />
+                  <%= @item.station_description_text.to_s.text_to_html %>
+                </div><br /><br />
+              </div>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="row hidden_in_modal">
+          <div class="col-12">
+            <br /><br /><br /><br /><br /><br />
+            <%= link_to "Back to stations list", profile_my_stations_path %>
+            <br/><br/><br/><br/><br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

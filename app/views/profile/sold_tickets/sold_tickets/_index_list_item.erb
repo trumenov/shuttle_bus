@@ -1,0 +1,27 @@
+<div class="catalog_item_main_block ticket_item_block sold_ticket_item_block" >
+   <div class="catalog_item2">
+      <a class="catalog_item_img_block2" href='<%= user_path(item.user.id) %>' onclick="return show_in_modal_link(this, 'proj_modal_main user_modal');" name='user_<%= item.user.id %>' >
+        <div class="catalog_item_subimg_block">
+          <div class="catalog_item_img_cell">
+            <img src="<%= get_user_avatar_sm_url(item.user) %>" />
+          </div>
+        </div>
+        <span class='public_user_name'><%= item.user.name_or_email_for_public.ehtml %></span>
+      </a>
+      <div class="ticket_item_body">
+        <div class="col-12 ticket_item_info_block">
+          <a class='ticket_name_link' href="<%= profile_sold_ticket_path(item.id) %>" onclick="return show_in_modal_link(this, 'proj_modal_main profile_sold_ticket_modal');" name='profile_sold_ticket_<%= item.id %>' >
+            <%= item.client_ticket_name_html %>
+          </a><br />
+          Ticket type: <%= item.event_ticket_pack.event_ticket_pack_type %>, <%= item.event_ticket_pack.ticket_cost_eur.to_price_html("EUR") %><br/>
+          <a class='ticket_event_link' href="<%= profile_my_event_path(item.event_ticket_pack.event.id) %>" onclick="return show_in_modal_link(this, 'proj_modal_main profile_my_event_modal');" name='profile_my_event_<%= item.event_ticket_pack.event.id %>' >
+            Event: <%= item.event_ticket_pack.event.name.ehtml %>
+          </a><br />
+          <%= item.client_slot_status_html %><br />
+          created_at: <%= item.created_at.client_stamp_html %><br />
+        </div>
+      </div>
+   </div>
+</div>
+
+
