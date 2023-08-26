@@ -24,7 +24,9 @@ set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
 set :puma_access_log, "#{release_path}/log/puma.access.log"
 set :puma_error_log,  "#{release_path}/log/puma.error.log"
 # set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub) }
-set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/rsa_chaky22222222_shuttle_bus_deploy.pub), auth_methods: ['publickey'] }
+set :ssh_options,     { forward_agent: true, user: fetch(:user),
+                        keys: %w(~/.ssh/rsa_chaky22222222_shuttle_bus_deploy),
+                        port: 56565, auth_methods: ['publickey'] }
 # set :ssh_options,     { forward_agent: true, user: fetch(:user) }
 # default_run_options[:pty] = true
 set :puma_preload_app, true
