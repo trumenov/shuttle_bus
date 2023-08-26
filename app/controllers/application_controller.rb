@@ -28,7 +28,7 @@ class ::ActionController::Base
         options = dst + options
       end
     end
-    options = options.gsub('http://hw.dp.ua/', "#{ dst }/").gsub('https://hw.dp.ua/', "#{ dst }/")
+    options = options.gsub(/^https?\:\/\/hw\.dp\.ua(?:\:\d+|\:|)\/?/i, "#{ dst }/")
     super(options, response_status)
   end
 
