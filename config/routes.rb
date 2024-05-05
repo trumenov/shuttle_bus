@@ -11,6 +11,14 @@ Rails.application.routes.draw do
   # get '/parties'                                , to: 'pages#front_parties_list'
   # get '/parties/:party_id'                      , to: 'pages#front_parties_edit'
   # get '/parties/:party_id/buy_ticket/:tpack_id' , to: 'pages#front_parties_buy_ticket'
+
+  resources :queues, module: :pub_task_queues, param: :tq_id, only: [:index, :show, :update] do
+
+  end
+  # resources :tasks, module: :front_users_module, param: :front_user_id, only: [:index, :show] do
+
+  #   end
+
   resources :users, module: :front_users_module, param: :front_user_id, only: [:index, :show] do
 
   end
