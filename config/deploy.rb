@@ -1,5 +1,5 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.17.0"
+lock "~> 3.18.0"
 
 # server '192.168.1.8', port: 22, roles: [:web, :app, :db], primary: true
 server '159.69.10.17', user: 'der2shop_guy', port: 56565, roles: [:web, :app, :db], primary: true
