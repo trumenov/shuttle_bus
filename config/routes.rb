@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root to: 'pages#main_page'
   # get '/test_path', to: 'pages#test_path'
   get '/about'    , to: 'pages#about'
+  get '/gifs_some1'    , to: 'pages#gifs_some1'
 
   # get '/parties'                                , to: 'pages#front_parties_list'
   # get '/parties/:party_id'                      , to: 'pages#front_parties_edit'

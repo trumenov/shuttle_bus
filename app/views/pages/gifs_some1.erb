@@ -1,0 +1,13 @@
+<h2 class="mt-5">gifs_some1</h2>
+<br/>
+<div class='col-12'>
+  <div class="row">
+    <% Dir.foreach("#{Rails.root}/public/gifs_some1") do |image| %>
+      <% next if image == '.' || image == '..' %>
+      <div class="col-4 mt-5">
+        <img style='display: inline-block; max-width: 100%;' src="/gifs_some1/<%= image.to_s.eurl %>" />
+      </div>
+    <% end %>
+  </div>
+</div>
+<br/><br/>

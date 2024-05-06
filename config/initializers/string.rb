@@ -7,6 +7,7 @@ class String
                     "SH", "SCH", "", "I", "", "E", "JU", "JA"].freeze
 
   def size_positive?; length > 0; end
+  def eurl; ::CGI::escape(self); end
   def ehtml; ::CGI::escapeHTML(self).html_safe; end
   def text_to_html; ::CGI::escapeHTML(self).gsub("\n", "<br />\n").html_safe; end
   def split_new_line; split("\n"); end

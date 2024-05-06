@@ -12,6 +12,10 @@ class PagesController < ApplicationController
     # render "here!"
   end
 
+  def gifs_some1
+    add_breadcrumb("gifs_some1", gifs_some1_path())
+  end
+
   def about
     add_breadcrumb("About", about_path())
   end
