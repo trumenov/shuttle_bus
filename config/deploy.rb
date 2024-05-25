@@ -42,7 +42,8 @@ set :branch,        :main
 
 ## Linked Files & Directories (Default None):
 # set :linked_files, %w{config/database.yml}
-# set :linked_dirs,  %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+# set :linked_dirs,  %w{node public/system}
+set :linked_dirs, fetch(:linked_dirs, []).push('vendor/bundle', 'node_modules', 'storage', 'public/system', 'public/games', 'tmp', '.bundle')
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'

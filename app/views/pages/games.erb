@@ -1,0 +1,33 @@
+<h2 class="mt-5">Games</h2>
+<br/>
+<div class='col-12'>
+  <div class="row">
+    <div class='col-12'>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>FileSize</th>
+            <th>AddedAt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Dir.foreach("#{Rails.root}/public/games") do |file_name| %>
+            <% next if file_name == '.' || file_name == '..' %>
+            <% file_path = "#{Rails.root}/public/games/#{file_name}" %>
+            <tr>
+              <td>
+                <a href="/games/<%= file_name.eurl %>" target='_blank'>
+                  <%= file_name.ehtml %>
+                </a>
+              </td>
+              <td><%= number_to_human_size(File.size(file_path)) %></td>
+              <td><%= File.ctime(file_path) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br/><br/>
