@@ -81,6 +81,7 @@ node_modules/
 
 # Ignore precompiled javascript packs
 /public/games
+/public/about
 /public/packs
 /public/packs-test
 /public/assets

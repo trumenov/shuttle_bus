@@ -3,37 +3,38 @@
 Project repository: <a href="https://github.com/trumenov/shuttle_bus" target="_blank">https://github.com/trumenov/shuttle_bus</a><br/>
 <br/><br/>
 
-Chernuha Andrey CV in PDF format:<br/>
-<table class='table table-sm'>
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>File</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        2022
-      </td>
-      <td>
-        <a href="/cv/andrew_chernuha_2022_3.pdf" target="_blank">
-          andrew_chernuha_2022_3.pdf
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        2023
-      </td>
-      <td>
-        <a href="/cv/andrew_chernuha_2023_1.pdf" target="_blank">
-          andrew_chernuha_2023_1.pdf
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+AndrewTrumenov CVs and other files for HRs:<br/>
+<div class='col-12'>
+  <div class="row">
+    <div class='col-12'>
+      <table class='table table-sm'>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>FileSize</th>
+            <th>AddedAt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Dir.foreach("#{Rails.root}/public/about") do |file_name| %>
+            <% next if file_name == '.' || file_name == '..' %>
+            <% file_path = "#{Rails.root}/public/about/#{file_name}" %>
+            <tr>
+              <td>
+                <a href="/about/<%= file_name.eurl %>" target='_blank'>
+                  <%= file_name.ehtml %>
+                </a>
+              </td>
+              <td><%= number_to_human_size(File.size(file_path)) %></td>
+              <td><%= File.ctime(file_path) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <br/><br/>
 
 Chernuha Andrey CV at GoogleDocs:<br/>
