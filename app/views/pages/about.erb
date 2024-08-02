@@ -16,7 +16,7 @@ AndrewTrumenov CVs and other files for HRs:<br/>
           </tr>
         </thead>
         <tbody>
-          <% Dir.foreach("#{Rails.root}/public/about") do |file_name| %>
+          <% Dir.entries("#{Rails.root}/public/about").sort_by { |x| File.ctime("#{Rails.root}/public/about/#{x}") } do |file_name| %>
             <% next if file_name == '.' || file_name == '..' %>
             <% file_path = "#{Rails.root}/public/about/#{file_name}" %>
             <tr>
