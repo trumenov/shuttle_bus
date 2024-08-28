@@ -1,0 +1,16 @@
+<h2 class="mt-5">Play video</h2>
+<br/>
+<div class='col-12'>
+  <div class="row">
+    <div class='col-12'>
+      <% if @item_relative_path.present? %>
+        <video width="100%" height="auto" controls="true" preload="none" src="<%= @item_relative_path %>" type="video/mp4" >
+
+        </video>
+      <% else %>
+        Not found file [<%= params[:f].to_s.ehtml.html_safe %>]
+      <% end %>
+    </div>
+  </div>
+</div>
+<br/><br/>

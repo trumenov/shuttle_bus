@@ -82,6 +82,7 @@ node_modules/
 # Ignore precompiled javascript packs
 /public/games
 /public/about
+/public/shara
 /public/packs
 /public/packs-test
 /public/assets

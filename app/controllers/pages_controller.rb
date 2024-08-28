@@ -20,6 +20,29 @@ class PagesController < ApplicationController
     add_breadcrumb("gifs_some1", gifs_some1_path())
   end
 
+  def video
+    add_breadcrumb("video", video_path())
+    @item_relative_path = nil
+    items = params[:f].to_s.split('/')
+    if items.count.eql?(2)
+      if ['gg5_v1'].include?(items[0])
+        fname = items[1].gsub(/[^a-zA-Z0-9\.\-\_]/i, '').gsub('..', '')
+        if fname.eql?(items[1])
+          relative_path = "/shara/#{items[0]}/#{fname}"
+          file_path = "#{Rails.root}/public/#{relative_path}"
+          @item_relative_path = relative_path if File.exist?(file_path)
+        end
+      end
+    end
+
+    # @item_relative_path = '/shara/gg5_v1/GossipGirl.S05E01.WEB-DLRip.Russia.-SBRO.avi'
+    # @item_relative_path = '/shara/gg5_v1/S05E01.mp4'
+  end
+
+  def gg5_v1
+    add_breadcrumb("gg5_v1", gg5_v1_path())
+  end
+
   def about
     add_breadcrumb("About", about_path())
   end

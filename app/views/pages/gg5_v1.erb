@@ -1,0 +1,37 @@
+<h2 class="mt-5">gg5_v1</h2>
+<br/>
+<div class='col-12'>
+  <div class="row">
+    <div class='col-12'>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>File</th>
+            <th>FileSize</th>
+            <th>AddedAt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% Dir.foreach("#{Rails.root}/public/shara/gg5_v1") do |file_name| %>
+            <% next if file_name == '.' || file_name == '..' %>
+            <% file_path = "#{Rails.root}/public/shara/gg5_v1/#{file_name}" %>
+            <tr>
+              <td>
+                <a href="/video?f=<%= "gg5_v1/#{file_name}".eurl %>" >
+                  <%= file_name.ehtml %>
+                </a>
+              </td>
+              <td>
+                <a href="/shara/gg5_v1/<%= file_name.eurl %>" target='_blank'>
+                  <%= number_to_human_size(File.size(file_path)) %>
+                </a>
+              </td>
+              <td><%= File.ctime(file_path) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br/><br/>

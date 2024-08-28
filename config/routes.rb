@@ -6,8 +6,10 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root to: 'pages#main_page'
   # get '/test_path', to: 'pages#test_path'
+  get '/video'    , to: 'pages#video'
   get '/about'    , to: 'pages#about'
   get '/gifs_some1'    , to: 'pages#gifs_some1'
+  get '/gg5_v1'    , to: 'pages#gg5_v1'
   get '/games', to: 'pages#games'
 
 
