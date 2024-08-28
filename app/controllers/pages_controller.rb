@@ -26,7 +26,7 @@ class PagesController < ApplicationController
     items = params[:f].to_s.split('/')
     if items.count.eql?(2)
       if ['gg5_v1', 'gg5_v2'].include?(items[0])
-        fname = items[1].gsub(/[^a-zA-Z0-9\.\-\_]/i, '').gsub('..', '')
+        fname = items[1].gsub(/[^a-zA-Z0-9\.\-\_\[\]]/i, '').gsub('..', '')
         if fname.eql?(items[1])
           relative_path = "/shara/#{items[0]}/#{fname}"
           file_path = "#{Rails.root}/public/#{relative_path}"
