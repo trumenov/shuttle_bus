@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get '/about'    , to: 'pages#about'
   get '/gifs_some1'    , to: 'pages#gifs_some1'
   get '/gg5_v1'    , to: 'pages#gg5_v1'
+  get '/gg5_v2'    , to: 'pages#gg5_v2'
   get '/games', to: 'pages#games'
 
 

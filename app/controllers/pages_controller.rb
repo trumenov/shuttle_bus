@@ -25,7 +25,7 @@ class PagesController < ApplicationController
     @item_relative_path = nil
     items = params[:f].to_s.split('/')
     if items.count.eql?(2)
-      if ['gg5_v1'].include?(items[0])
+      if ['gg5_v1', 'gg5_v2'].include?(items[0])
         fname = items[1].gsub(/[^a-zA-Z0-9\.\-\_]/i, '').gsub('..', '')
         if fname.eql?(items[1])
           relative_path = "/shara/#{items[0]}/#{fname}"
@@ -41,6 +41,10 @@ class PagesController < ApplicationController
 
   def gg5_v1
     add_breadcrumb("gg5_v1", gg5_v1_path())
+  end
+
+  def gg5_v2
+    add_breadcrumb("gg5_v2", gg5_v2_path())
   end
 
   def about
