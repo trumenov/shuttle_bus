@@ -96,6 +96,7 @@ GEM
     autoprefixer-rails (10.3.3.0)
       execjs (~> 2)
     bcrypt (3.1.16)
+    bcrypt_pbkdf (1.1.1)
     bootsnap (1.9.1)
       msgpack (~> 1.0)
     bootstrap-sass (3.4.1)
@@ -145,6 +146,7 @@ GEM
     dry-initializer-rails (3.1.1)
       dry-initializer (>= 2.4, < 4)
       rails (> 3.0)
+    ed25519 (1.3.0)
     erubi (1.12.0)
     et-orbi (1.2.5)
       tzinfo
@@ -446,6 +448,7 @@ DEPENDENCIES
   activemerchant
   api_error_handler
   bcrypt (~> 3.1.7)
+  bcrypt_pbkdf (>= 1.0, < 2.0)
   bootsnap (>= 1.4.4)
   bootstrap-sass
   breadcrumbs_on_rails
@@ -459,6 +462,7 @@ DEPENDENCIES
   devise
   dry-initializer
   dry-initializer-rails
+  ed25519
   factory_bot_rails
   geocoder
   httparty
