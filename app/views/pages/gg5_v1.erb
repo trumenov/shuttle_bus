@@ -12,7 +12,7 @@
           </tr>
         </thead>
         <tbody>
-          <% Dir.foreach("#{Rails.root}/public/shara/gg5_v1") do |file_name| %>
+          <% Dir.foreach("#{Rails.root}/public/shara/gg5_v1").sort.each do |file_name| %>
             <% next if file_name == '.' || file_name == '..' %>
             <% file_path = "#{Rails.root}/public/shara/gg5_v1/#{file_name}" %>
             <tr>
