@@ -51,6 +51,7 @@ gem 'active_bootstrap_skin'
 gem 'api_error_handler'
 
 gem 'rack-cors'
+gem 'nokogiri'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

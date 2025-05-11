@@ -20,6 +20,23 @@ class PagesController < ApplicationController
     add_breadcrumb("gifs_some1", gifs_some1_path())
   end
 
+  def new_animes
+    add_breadcrumb("new_animes", new_animes_path())
+    # AnimeScraper.save_anime_titles_to_csv
+    # raise("TMP STOP 34234423.")
+  end
+
+  def create_animes_snapshot
+    unless params[:p].to_s.eql?('123')
+      flash2(:alert, 'Snapshot not created, password failed')
+      return redirect_to new_animes_path
+    end
+
+    AnimeScraper.save_anime_titles_to_csv
+    flash2(:success, 'Snapshot created')
+    redirect_to new_animes_path
+  end
+
   def video
     add_breadcrumb("video", video_path())
     @item_relative_path = nil

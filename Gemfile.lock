@@ -473,6 +473,7 @@ DEPENDENCIES
   listen (~> 3.3)
   mime-types
   mysql2
+  nokogiri
   oj
   omniauth
   omniauth-facebook

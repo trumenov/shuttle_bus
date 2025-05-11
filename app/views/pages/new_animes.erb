@@ -1,0 +1,51 @@
+<h2 class="mt-5">New animes</h2>
+<br/>
+<div class='col-12'>
+  <div class="row">
+    <div class='col-12'>
+      <button class="btn btn-success btn-sm" type="button" onclick="return run_create_animes_snapshot();">Create new snapshot</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class='col-12'>
+      <table class='table'>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% AnimeScraper.detect_new_animes.each do |anime| %>
+            <tr>
+              <td>
+                <%= anime.first.ehtml %>
+              </td>
+              <td><%= anime.second.ehtml %></td>
+              <td>
+                <a rel="nofollow" target="_blank" href="<%= URI.parse("https://www.wcostream.tv#{anime[2]}").to_s.html_safe %>">
+                  https://www.wcostream.tv<%= anime[2].to_s.ehtml %>
+                </a>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<br/><br/>
+
+<script type="text/javascript">
+  function run_create_animes_snapshot() {
+    const p_val = prompt('p');
+
+    console.log('p_val=', p_val);
+
+    if (!p_val) return false;
+    document.location.href='/create_animes_snapshot?p=' + p_val;
+    return false;
+  }
+
+</script>

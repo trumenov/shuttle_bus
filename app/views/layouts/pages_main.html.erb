@@ -48,8 +48,11 @@
             <li class="nav-item <%= request.path.start_with?('/profile') ? 'active' : '' %>">
               <a class="nav-link" href="/profile">Profile</a>
             </li>
+            <li class="nav-item <%= request.path.start_with?('/new_animes') ? 'active' : '' %>">
+              <a rel="nofollow" class="nav-link" href="/new_animes">Animes</a>
+            </li>
             <li class="nav-item <%= request.path.start_with?('/about') ? 'active' : '' %>">
-              <a class="nav-link" href="/about">About</a>
+              <a rel="nofollow" class="nav-link" href="/about">About</a>
             </li>
           </ul>
           <ul class="navbar-nav ml-auto">

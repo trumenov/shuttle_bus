@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get '/gg5_v1'    , to: 'pages#gg5_v1'
   get '/gg5_v2'    , to: 'pages#gg5_v2'
   get '/games', to: 'pages#games'
+  get '/new_animes', to: 'pages#new_animes'
+  get '/create_animes_snapshot', to: 'pages#create_animes_snapshot'
+
 
 
   # get '/parties'                                , to: 'pages#front_parties_list'
