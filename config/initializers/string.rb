@@ -18,8 +18,8 @@ class String
   def str_eq?(other); self == other; end
   def to_search_text; split(/\s+/).select(&:size_positive?).map(&:downcase).uniq.sort.join(' '); end
   def to_json_arr; size_positive? ? JSON.parse(strip) : []; end
-  def json_as_h; present? ? JSON.parse(strip) : {}; end
-  def to_json_h; json_as_h; end
+  def json_as_h; present? ? JSON.parse(strip, symbolize_names: true) : {}; end
+  def to_json_h; present? ? JSON.parse(strip) : {};; end
 
   def translit
     result = ""
